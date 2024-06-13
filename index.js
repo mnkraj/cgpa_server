@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const solveforall = require("./Getresults")
 const Getresults = require("./getresultroute")
 const cors = require("cors");
+const Delete = require("./Delete")
 const app = express();
 app.use(
     cors({
@@ -25,6 +26,7 @@ const port = process.env.PORT;
 
 
 app.use("/api/v1", Getresults);
+app.use("/api/v1", Delete);
 app.get("/",(req,res)=>{
   res.send("kya aapke tooth paste mein namak hai ? ")
 })

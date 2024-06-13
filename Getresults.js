@@ -12,7 +12,7 @@ const solve3 = async (token) => {
     __EVENTTARGET: "",
     __EVENTARGUMENT: "",
     __VIEWSTATE: token,
-    ddlSemester: "4",
+    ddlSemester: "2",
     hfIdno: "16219",
     "btnimgShowResult.x": "15",
     "btnimgShowResult.y": "14",
@@ -146,8 +146,8 @@ const solve = async (regn) => {
   }
 };
 const solveforall = async () => {
-    let years = ["2022"];
-    let branches = ["CE", "ME", "EC", "MM", "PI"];
+    let years = ["2022","2021","2020","2023"];
+    let branches = ["CS","EE", "CE", "ME", "EC", "MM", "PI"];
     for (let year of years) {
       for (let branch of branches) {
         for (let roll = 1; roll <= 130; roll++) {
