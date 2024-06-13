@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 app.use(
     cors({
-      origin: "*",
+      origin: "https://cgpa-leaderboad.vercel.app",
   
       methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     })
