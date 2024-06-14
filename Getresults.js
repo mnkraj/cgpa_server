@@ -1,13 +1,12 @@
 const axios = require("axios");
 const qs = require("qs");
 const cheerio = require("cheerio");
-const connectDB = require("./Db");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 const cgpamodel = require("./cgmodel")
 let cookieenv = process.env.COOKIE;
 
-connectDB();
+
 
 const solve3 = async (token) => {
   let data = qs.stringify({
@@ -15,7 +14,7 @@ const solve3 = async (token) => {
     __EVENTTARGET: "",
     __EVENTARGUMENT: "",
     __VIEWSTATE: token,
-    ddlSemester: "2",
+    ddlSemester: "4",
     hfIdno: "16219",
     "btnimgShowResult.x": "15",
     "btnimgShowResult.y": "14",
@@ -171,4 +170,6 @@ const solveforall = async () => {
     }
   };
   
-solveforall();
+// solveforall();
+
+module.exports = solveforall;

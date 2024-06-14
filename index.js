@@ -2,6 +2,7 @@ const express = require("express");
 const connectDB = require("./Db");
 const dotenv = require("dotenv");
 const Getresults = require("./getresultroute")
+const solveforall = require("./Getresults")
 const cors = require("cors");
 const Delete = require("./Delete")
 const app = express();
@@ -20,7 +21,7 @@ dotenv.config();
 
 const port = process.env.PORT;
 
-
+// solveforall();
 
 app.use("/api/v1", Getresults);
 app.use("/api/v1", Delete);
