@@ -1,10 +1,13 @@
 const axios = require("axios");
 const qs = require("qs");
 const cheerio = require("cheerio");
+const connectDB = require("./Db");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 const cgpamodel = require("./cgmodel")
 let cookieenv = process.env.COOKIE;
+
+connectDB();
 
 const solve3 = async (token) => {
   let data = qs.stringify({
@@ -147,7 +150,7 @@ const solve = async (regn) => {
 };
 const solveforall = async () => {
     let years = ["2022","2021","2020","2023"];
-    let branches = ["CS","EE", "CE", "ME", "EC", "MM", "PI"];
+    let branches = ["CM"];
     for (let year of years) {
       for (let branch of branches) {
         for (let roll = 1; roll <= 130; roll++) {
@@ -168,14 +171,4 @@ const solveforall = async () => {
     }
   };
   
-// solveforall();
-
-
-
-const r = async()=>{
-    let d = await solve ("2022UGCS220");
-    console.log(d)
-}
-// r();
-
-module.exports = solveforall;
+solveforall();
