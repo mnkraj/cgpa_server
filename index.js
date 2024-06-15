@@ -10,7 +10,7 @@ app.use(
     cors({
       origin: "https://cgpa-leaderboad.vercel.app",
   
-      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      methods: "GET",
     })
 );
 
@@ -24,7 +24,7 @@ const port = process.env.PORT;
 // solveforall();
 
 app.use("/api/v1", Getresults);
-app.use("/api/v1", Delete);
+// app.use("/api/v1", Delete);
 app.get("/",(req,res)=>{
   res.send("kya aapke tooth paste mein namak hai ? ")
 })
