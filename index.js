@@ -6,13 +6,22 @@ const solveforall = require("./Getresults")
 const cors = require("cors");
 const Delete = require("./Delete")
 const app = express();
-app.use(
-    cors({
-      origin: "https://cgpa-leaderboad.vercel.app",
-  
-      methods: "GET",
-    })
-);
+const allowedOrigins = [
+  "https://cgpa-leaderboad.vercel.app",
+  "https://nitjsr.vercel.app",
+  "https://cgpanitjsr.vercel.app"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: "GET"
+}));
 
 connectDB();
 dotenv.config();
