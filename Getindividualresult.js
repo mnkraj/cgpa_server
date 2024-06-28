@@ -25,7 +25,6 @@ const solve3 = async (token, sem) => {
     method: "post",
     maxBodyLength: Infinity,
     url: "http://202.168.87.90/StudentPortal/default.aspx",
-    timeout: 60000,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -68,7 +67,6 @@ const solve2 = async (regn) => {
     method: "get",
     maxBodyLength: Infinity,
     url: "http://202.168.87.90/StudentPortal/default.aspx",
-    timeout: 60000,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -136,7 +134,6 @@ const solve = async (regn) => {
     method: "post",
     maxBodyLength: Infinity,
     url: "http://202.168.87.90/StudentPortal/Login.aspx",
-    timeout: 60000,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -187,7 +184,6 @@ const solve0 = async (regn) => {
     method: "post",
     maxBodyLength: Infinity,
     url: "http://202.168.87.90/StudentPortal/ForgetPassword.aspx",
-    timeout: 60000,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
