@@ -9,13 +9,5 @@
         "src": "/(.*)",
         "dest": "/"
       }
-    ],
-    "functions": {
-    "api/test.js": {
-      "maxDuration": 60 
-    },
-    "api/*.js": {
-      "maxDuration": 60
-    }
-  }
+    ]
   } 
