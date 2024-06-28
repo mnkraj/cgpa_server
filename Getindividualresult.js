@@ -25,6 +25,7 @@ const solve3 = async (token, sem) => {
     method: "post",
     maxBodyLength: Infinity,
     url: "http://202.168.87.90/StudentPortal/default.aspx",
+    timeout: 60000,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -53,8 +54,9 @@ const solve3 = async (token, sem) => {
     let regnnumber = $("#txtRegno").text().trim();
     let name = $("#lblStudentName").text().trim();
     let cgpa = $("#lblCPI").text().trim();
+    let sgpa = $("#lblSPI").text().trim();
 
-    return { success: true, regnnumber, name, sem, cgpa };
+    return { success: true, regnnumber, name, sem, cgpa ,sgpa };
   } catch (error) {
     console.error(error);
     return { success: false, message: "Error occurred" };
@@ -66,6 +68,7 @@ const solve2 = async (regn) => {
     method: "get",
     maxBodyLength: Infinity,
     url: "http://202.168.87.90/StudentPortal/default.aspx",
+    timeout: 60000,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -102,7 +105,7 @@ const solve2 = async (regn) => {
       const resolveddata = await Promise.all(results);
       resolveddata.forEach((resp) => {
         name = resp.name;
-        semresults.push({"sem" : resp.sem , "cgpa" : resp.cgpa});
+        semresults.push({"sem" : resp.sem ,"sgpa" : resp.sgpa, "cgpa" : resp.cgpa});
       });
       return {success : true , regn , name , semresults}
     } else {
@@ -133,6 +136,7 @@ const solve = async (regn) => {
     method: "post",
     maxBodyLength: Infinity,
     url: "http://202.168.87.90/StudentPortal/Login.aspx",
+    timeout: 60000,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -183,6 +187,7 @@ const solve0 = async (regn) => {
     method: "post",
     maxBodyLength: Infinity,
     url: "http://202.168.87.90/StudentPortal/ForgetPassword.aspx",
+    timeout: 60000,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -207,7 +212,7 @@ const solve0 = async (regn) => {
       let finalres = await solve(regn);
       return finalres;
     } else {
-      return `Invalid application number ${regn}`;
+      return {success : false , message : `Invalid application number ${regn}`};
     }
   } catch (error) {
     console.error(error);
