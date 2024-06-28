@@ -2,6 +2,8 @@ const express = require("express");
 const connectDB = require("./Db");
 const dotenv = require("dotenv");
 const Getresults = require("./getresultroute")
+const getindividualresult = require("./Getindividualresult")
+const bodyParser = require('body-parser');
 const solveforall = require("./Getresults")
 const cors = require("cors");
 const Delete = require("./Delete")
@@ -27,12 +29,16 @@ connectDB();
 dotenv.config();
 
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 const port = process.env.PORT;
 
 // solveforall();
 
 app.use("/api/v1", Getresults);
+app.use("/api/v1", getindividualresult);
 // app.use("/api/v1", Delete);
 app.get("/",(req,res)=>{
   res.send("kya aapke tooth paste mein namak hai ? ")
