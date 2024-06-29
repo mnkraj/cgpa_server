@@ -74,5 +74,5 @@ const solveforall = async () => {
   }
 };
 
-solveforall();
+// solveforall();
 // console.log(process.env.PASSWORD)
