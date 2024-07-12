@@ -96,6 +96,7 @@ const solve2 = async (regn) => {
       else if (regn.includes("2021")) (l = 1), (r = 6);
       else if (regn.includes("2020")) (l = 1), (r = 8);
       else if (regn.includes("2023")) (l = 1), (r = 2);
+      else (l = 1), (r = 8);
       for (let i = l; i <= r; i++) {
         let result = solve3(viewStateMatch[1], i);
         results.push(result);
@@ -105,7 +106,7 @@ const solve2 = async (regn) => {
         name = resp.name;
         semresults.push({"sem" : resp.sem ,"sgpa" : resp.sgpa, "cgpa" : resp.cgpa});
       });
-      return {success : true , regn , name , semresults}
+      return {success : true , regn , name: resolveddata[0].name , semresults}
     } else {
       return null;
     }
