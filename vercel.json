@@ -9,10 +9,5 @@
       "src": "/(.*)",
       "dest": "/"
     }
-  ],
-  "functions": {
-    "api/getindividualresult.js": {
-      "maxDuration": 50 
-    }
-  }
+  ]
 }

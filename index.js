@@ -38,7 +38,7 @@ const port = process.env.PORT;
 // solveforall();
 
 app.use("/api/v1", Getresults);
-app.use("/api", getindividualresult);
+app.use("/api/v1", getindividualresult);
 // app.use("/api/v1", Delete);
 app.get("/",(req,res)=>{
   res.send("kya aapke tooth paste mein namak hai ? ")
