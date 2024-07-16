@@ -11,7 +11,7 @@
     }
   ],
   "functions": {
-    "*.js": {
+    "Getindividualresult.js": {
       "maxDuration": 50 
     }
   }
