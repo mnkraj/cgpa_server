@@ -10,9 +10,9 @@
       "dest": "/"
     }
   ],
-  "functions": [{
-    "Getindividualresult.js": {
+  "functions": {
+    "api/getindividualresult.js": {
       "maxDuration": 50 
     }
-  }]
+  }
 }
