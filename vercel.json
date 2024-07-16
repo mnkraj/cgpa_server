@@ -9,5 +9,10 @@
       "src": "/(.*)",
       "dest": "/"
     }
-  ]
+  ],
+  "functions": {
+    "*.js": {
+      "maxDuration": 50 
+    }
+  }
 }
