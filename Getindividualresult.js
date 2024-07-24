@@ -88,6 +88,9 @@ const solve2 = async (regn) => {
     const viewStateMatch = res.match(
       /<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="([^"]+)" \/>/
     );
+    const secret = res.match(
+      /<input type="hidden" name="hfIdno" id="hfIdno" value="([^"]+)" \/>/
+    );
 
     if (viewStateMatch && viewStateMatch[1]) {
       let l, r;
@@ -106,7 +109,7 @@ const solve2 = async (regn) => {
         name = resp.name;
         semresults.push({"sem" : resp.sem ,"sgpa" : resp.sgpa, "cgpa" : resp.cgpa});
       });
-      return {success : true , regn , name: resolveddata[0].name , semresults}
+      return {success : true , regn , name: resolveddata[0].name , secret : secret[1] , semresults}
     } else {
       return null;
     }
