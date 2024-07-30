@@ -212,7 +212,7 @@ const solve0 = async (regn) => {
       let finalres = await solve(regn);
       return finalres;
     } else {
-      return {success : false , message : `Invalid application number ${regn}`};
+      return {success : false , message : `Invalid application number ${regn} or server unavailable`};
     }
   } catch (error) {
     console.error(error);
