@@ -12,7 +12,8 @@ const allowedOrigins = [
   "https://cgpa-leaderboad.vercel.app",
   "https://nitjsr.vercel.app",
   "https://cgpanitjsr.vercel.app",
-  "https://cgpa-leaderboard.vercel.app"
+  "https://cgpa-leaderboard.vercel.app",
+  "http://localhost:3000"
 ];
 
 app.use(cors({
