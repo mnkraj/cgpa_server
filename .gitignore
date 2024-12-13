@@ -1,0 +1,17 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore environment variables file
+.env
+
+# Ignore build directories
+dist/
+build/
+
+# Ignore any other files or directories you don't want to upload
+.DS_Store
+*.lock
+coverage/
