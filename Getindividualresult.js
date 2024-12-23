@@ -95,10 +95,11 @@ const solve2 = async (regn) => {
     if (viewStateMatch && viewStateMatch[1]) {
       let l, r;
       let results = [],semresults=[],name;
-      if (regn.includes("2022")) (l = 3), (r = 4);
-      else if (regn.includes("2021")) (l = 1), (r = 6);
+      if (regn.includes("2022")) (l = 3), (r = 5);
+      else if (regn.includes("2024")) (l = 1), (r = 1);
+      else if (regn.includes("2021")) (l = 1), (r = 7);
       else if (regn.includes("2020")) (l = 1), (r = 8);
-      else if (regn.includes("2023")) (l = 1), (r = 2);
+      else if (regn.includes("2023")) (l = 1), (r = 3);
       else (l = 1), (r = 8);
       for (let i = l; i <= r; i++) {
         let result = solve3(viewStateMatch[1], i);
