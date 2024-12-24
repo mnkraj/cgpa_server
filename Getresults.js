@@ -8,13 +8,13 @@ let cookieenv = process.env.COOKIE;
 
 
 
-const solve3 = async (token) => {
+const solve3 = async (token, sem) => {
   let data = qs.stringify({
     ToolkitScriptManager1_HiddenField: "",
     __EVENTTARGET: "",
     __EVENTARGUMENT: "",
     __VIEWSTATE: token,
-    ddlSemester: "4",
+    ddlSemester: sem,
     hfIdno: "16219",
     "btnimgShowResult.x": "15",
     "btnimgShowResult.y": "14",
@@ -32,7 +32,7 @@ const solve3 = async (token) => {
       "Cache-Control": "max-age=0",
       Connection: "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
-      Cookie: "ASP.NET_SessionId=500u5m55vrmnot45susehpij",
+      Cookie: cookieenv,
       Origin: "http://202.168.87.90",
       Referer: "http://202.168.87.90/StudentPortal/default.aspx",
       "Upgrade-Insecure-Requests": "1",
@@ -53,15 +53,15 @@ const solve3 = async (token) => {
     let regnnumber = $("#txtRegno").text().trim();
     let name = $("#lblStudentName").text().trim();
     let cgpa = $("#lblCPI").text().trim();
-
-    return { success: true, regnnumber, name, cgpa };
+    let sgpa = $("#lblSPI").text().trim();
+    return { success: true, regnnumber, name, cgpa ,sgpa,Sem : sem};
   } catch (error) {
     console.error(error);
     return { success: false, message: "Error occurred" };
   }
 };
 
-const solve2 = async () => {
+const solve2 = async (regn) => {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
@@ -87,9 +87,14 @@ const solve2 = async () => {
     const viewStateMatch = res.match(
       /<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="([^"]+)" \/>/
     );
-
+    let s
+    if(regn.includes("2021")) s = 7
+    else if(regn.includes("2022")) s = 5
+    else if(regn.includes("2023")) s = 3
+    else if(regn.includes("2024")) s = 1
+    else s = 8
     if (viewStateMatch && viewStateMatch[1]) {
-      const finalresult = await solve3(viewStateMatch[1]);
+      const finalresult = await solve3(viewStateMatch[1],s);
       return finalresult;
     } else {
       return null;
@@ -140,7 +145,7 @@ const solve = async (regn) => {
     const response = await axios.request(config);
     const res = response.data;
     if (!res.includes(regn)) return { success: false, message: "Invalid Application Number" , regn};
-    let res2 = await solve2();
+    let res2 = await solve2(regn);
     return res2;
   } catch (error) {
     console.error(error);
@@ -148,8 +153,8 @@ const solve = async (regn) => {
   }
 };
 const solveforall = async () => {
-    let years = ["2022","2021","2020","2023"];
-    let branches = ["CM"];
+    let years = ["2022"];
+    let branches = ["CS"];
     for (let year of years) {
       for (let branch of branches) {
         for (let roll = 1; roll <= 130; roll++) {
@@ -160,9 +165,10 @@ const solveforall = async () => {
             await cgpamodel.create({
                 Regn : resp.regnnumber,
                 Name : resp.name,
-                Cgpa : resp.cgpa
+                Cgpa : resp.cgpa,
+                Sgpa : resp.sgpa
             })
-            console.log(`Result Fetched and saved in database for ${resp.regnnumber}`)
+            console.log(`${resp.regnnumber} : ${resp.name} - (sem : ${resp.Sem} , SGPA : ${resp.sgpa} , CGPA : ${resp.cgpa}) saved in database`)
           }
           else console.log(`Error Fetching result for ${resp.regn}`)
         }

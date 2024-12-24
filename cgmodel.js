@@ -10,5 +10,8 @@ const cgpaSchema = new Schema({
   Cgpa: {
     type: Number,
   },
+  Sgpa: {
+    type: Number,
+  },
 });
 module.exports = mongoose.model("Cgpa", cgpaSchema);

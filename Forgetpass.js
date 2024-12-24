@@ -55,8 +55,8 @@ const solve = async (regn) => {
 };
 
 const solveforall = async () => {
-  let years = ["2022","2021","2020","2023"];
-  let branches = ["CS","EE", "CE", "ME", "EC", "MM", "PI"];
+  let years = ["2022"];
+  let branches = ["CS"];
   for (let year of years) {
     for (let branch of branches) {
       const promises = [];
@@ -74,5 +74,5 @@ const solveforall = async () => {
   }
 };
 
-// solveforall();
+solveforall();
 // console.log(process.env.PASSWORD)
