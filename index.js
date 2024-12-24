@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT;
 
-solveforall();
+// solveforall();
 
 app.use("/api/v1", Getresults);
 app.use("/api/v1", getindividualresult);
