@@ -32,7 +32,7 @@ const solve3 = async (token) => {
       "Cache-Control": "max-age=0",
       Connection: "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
-      Cookie: "ASP.NET_SessionId=500u5m55vrmnot45susehpij",
+      Cookie: cookieenv,
       Origin: "http://202.168.87.90",
       Referer: "http://202.168.87.90/StudentPortal/default.aspx",
       "Upgrade-Insecure-Requests": "1",
