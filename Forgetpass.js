@@ -2,8 +2,10 @@ const axios = require("axios");
 const dotenv = require("dotenv");
 const qs = require("qs");
 dotenv.config({ path: "./.env" });
+let cookieenv = process.env.COOKIE;
 
-const solve = async (regn) => {
+
+const solve4 = async (regn) => {
   let data = qs.stringify({
     ToolkitScriptManager1_HiddenField:
       ";;AjaxControlToolkit, Version=3.0.20229.20843, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e:en-US:3b7d1b28-161f-426a-ab77-b345f2c428f5:e2e86ef9:1df13a87:8ccd9c1b",
@@ -30,7 +32,7 @@ const solve = async (regn) => {
       "Cache-Control": "max-age=0",
       Connection: "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
-      Cookie: "ASP.NET_SessionId=500u5m55vrmnot45susehpir",
+      Cookie: cookieenv,
       Origin: "http://202.168.87.90",
       Referer: "http://202.168.87.90/StudentPortal/ForgetPassword.aspx",
       "Upgrade-Insecure-Requests": "1",
@@ -63,7 +65,7 @@ const solveforall = async () => {
       for (let roll = 1; roll <= 130; roll++) {
         let rollStr = roll.toString().padStart(3, "0"); // Format roll as a three-digit string
         let applicationnumber = `${year}UG${branch}${rollStr}`;
-        const singlepromise = solve(applicationnumber);
+        const singlepromise = solve4(applicationnumber);
         promises.push(singlepromise);
       }
       const resolveddata = await Promise.all(promises);
@@ -74,5 +76,6 @@ const solveforall = async () => {
   }
 };
 
-solveforall();
+// solveforall();
 // console.log(process.env.PASSWORD)
+module.exports = solve4

@@ -4,6 +4,7 @@ const cheerio = require("cheerio");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 const cgpamodel = require("./cgmodel")
+const solve4 = require("./Forgetpass")
 let cookieenv = process.env.COOKIE;
 
 
@@ -154,23 +155,28 @@ const solve = async (regn) => {
 };
 const solveforall = async () => {
     let years = ["2022"];
-    let branches = ["CS"];
+    let branches = ["CS","EE","EC"];
     for (let year of years) {
       for (let branch of branches) {
         for (let roll = 1; roll <= 130; roll++) {
           let rollStr = roll.toString().padStart(3, "0");
           let applicationnumber = `${year}UG${branch}${rollStr}`;
-          const resp =await solve(applicationnumber);
-          if(resp.success){
-            await cgpamodel.create({
-                Regn : resp.regnnumber,
-                Name : resp.name,
-                Cgpa : resp.cgpa,
-                Sgpa : resp.sgpa
-            })
-            console.log(`${resp.regnnumber} : ${resp.name} - (sem : ${resp.Sem} , SGPA : ${resp.sgpa} , CGPA : ${resp.cgpa}) saved in database`)
+          let r1 = await solve4(applicationnumber)
+          if(r1.includes("Password Modified"))
+          {
+            const resp =await solve(applicationnumber);
+            if(resp.success){
+              await cgpamodel.create({
+                  Regn : resp.regnnumber,
+                  Name : resp.name,
+                  Cgpa : resp.cgpa,
+                  Sgpa : resp.sgpa
+              })
+              console.log(`${resp.regnnumber} : ${resp.name} - (sem : ${resp.Sem} , SGPA : ${resp.sgpa} , CGPA : ${resp.cgpa}) saved in database`)
+            }
+            else console.log(`Error Fetching result for ${resp.regn}`)
           }
-          else console.log(`Error Fetching result for ${resp.regn}`)
+          else console.log(`Invalid Regn no ${applicationnumber}`)
         }
       }
     }
