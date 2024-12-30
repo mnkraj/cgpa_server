@@ -13,7 +13,7 @@ const allowedOrigins = [
   "https://nitjsr.vercel.app",
   "https://cgpanitjsr.vercel.app",
   "https://cgpa-leaderboard.vercel.app",
-  "http://localhost:3000"
+  // "http://localhost:3000"
 ];
 
 app.use(cors({
@@ -24,7 +24,7 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: "GET"
+  methods: ["GET", "POST"]
 }));
 
 connectDB();
