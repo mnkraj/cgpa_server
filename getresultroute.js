@@ -11,5 +11,14 @@ router.get("/getresults", async (req, res) => {
     res.json({ success: false, message: "Internal Server Error" });
   }
 });
+router.post("/getresults", async (req, res) => {
+  try {
+    const {regn} = req.body;
+    const results = await cgpamodel.findOne({Regn : regn});
+    res.json(results);
+  } catch (e) {
+    res.json({ success: false, message: "Internal Server Error" });
+  }
+});
 
 module.exports = router;
