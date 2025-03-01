@@ -55,14 +55,14 @@ const solve3 = async (token, sem) => {
     let cgpa = $("#lblCPI").text().trim();
     let sgpa = $("#lblSPI").text().trim();
 
-    return { success: true, regnnumber, name, sem, cgpa ,sgpa };
+    return { success: true, regnnumber, name, sem, cgpa, sgpa };
   } catch (error) {
     console.error(error);
     return { success: false, message: "Error occurred" };
   }
 };
 
-const solve2 = async (regn) => {
+const solve2 = async (regn, isaksingtoken) => {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
@@ -91,10 +91,16 @@ const solve2 = async (regn) => {
     const secret = res.match(
       /<input type="hidden" name="hfIdno" id="hfIdno" value="([^"]+)" \/>/
     );
-
+    if (isaksingtoken) {
+      if (!viewStateMatch || !secret)
+        return { success: false, message: "Server Error" };
+      return { success: true, token: viewStateMatch[1], secret: secret[1] };
+    }
     if (viewStateMatch && viewStateMatch[1]) {
       let l, r;
-      let results = [],semresults=[],name;
+      let results = [],
+        semresults = [],
+        name;
       if (regn.includes("2022")) (l = 3), (r = 5);
       else if (regn.includes("2024")) (l = 1), (r = 1);
       else if (regn.includes("2021")) (l = 1), (r = 7);
@@ -108,9 +114,15 @@ const solve2 = async (regn) => {
       const resolveddata = await Promise.all(results);
       resolveddata.forEach((resp) => {
         name = resp.name;
-        semresults.push({"sem" : resp.sem ,"sgpa" : resp.sgpa, "cgpa" : resp.cgpa});
+        semresults.push({ sem: resp.sem, sgpa: resp.sgpa, cgpa: resp.cgpa });
       });
-      return {success : true , regn , name: resolveddata[0].name , secret : secret[1] , semresults}
+      return {
+        success: true,
+        regn,
+        name: resolveddata[0].name,
+        secret: secret[1],
+        semresults,
+      };
     } else {
       return null;
     }
@@ -120,7 +132,7 @@ const solve2 = async (regn) => {
   }
 };
 
-const solve = async (regn) => {
+const solve = async (regn, isaksingtoken) => {
   let data = qs.stringify({
     ToolkitScriptManager1_HiddenField:
       ";;AjaxControlToolkit, Version=3.0.20229.20843, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e:en-US:3b7d1b28-161f-426a-ab77-b345f2c428f5:e2e86ef9:1df13a87:8ccd9c1b",
@@ -161,7 +173,7 @@ const solve = async (regn) => {
     const res = response.data;
     if (!res.includes(regn))
       return { success: false, message: "Invalid Application Number", regn };
-    let res2 = await solve2(regn);
+    let res2 = await solve2(regn, isaksingtoken);
     return res2;
   } catch (error) {
     console.error(error);
@@ -169,7 +181,7 @@ const solve = async (regn) => {
   }
 };
 
-const solve0 = async (regn) => {
+const solve0 = async (regn, isaksingtoken) => {
   let data = qs.stringify({
     ToolkitScriptManager1_HiddenField:
       ";;AjaxControlToolkit, Version=3.0.20229.20843, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e:en-US:3b7d1b28-161f-426a-ab77-b345f2c428f5:e2e86ef9:1df13a87:8ccd9c1b",
@@ -210,10 +222,13 @@ const solve0 = async (regn) => {
     const response = await axios.request(config);
     const res = response.data;
     if (res.includes("Password Modified Successfully")) {
-      let finalres = await solve(regn);
+      let finalres = await solve(regn, isaksingtoken);
       return finalres;
     } else {
-      return {success : false , message : `Invalid application number ${regn} or server unavailable`};
+      return {
+        success: false,
+        message: `Invalid application number ${regn} or server unavailable`,
+      };
     }
   } catch (error) {
     console.error(error);
@@ -223,8 +238,17 @@ const solve0 = async (regn) => {
 
 router.post("/getindividualresult", async (req, res) => {
   try {
-    const { regn } = req.body;
-    const pwd = await solve0(regn);
+    const { regn, isaksingtoken } = req.body;
+    const pwd = await solve0(regn, isaksingtoken);
+    res.send(pwd);
+  } catch (e) {
+    res.json({ success: false, message: "Internal Server Error" });
+  }
+});
+router.post("/getsemresult", async (req, res) => {
+  try {
+    const { token, sem } = req.body;
+    const pwd = await solve3(token, sem);
     res.send(pwd);
   } catch (e) {
     res.json({ success: false, message: "Internal Server Error" });
