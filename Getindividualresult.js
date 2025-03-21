@@ -83,7 +83,7 @@ const solve2 = async (regn, isaksingtoken) => {
   try {
     const response = await axios.request(config);
     const res = response.data;
-
+    const $ = cheerio.load(res);
     // Use a regular expression to find the __VIEWSTATE value
     const viewStateMatch = res.match(
       /<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="([^"]+)" \/>/
@@ -91,10 +91,12 @@ const solve2 = async (regn, isaksingtoken) => {
     const secret = res.match(
       /<input type="hidden" name="hfIdno" id="hfIdno" value="([^"]+)" \/>/
     );
+    let regnnumber = $("#txtRegno").text().trim();
+    let name = $("#lblSName").text().trim();
     if (isaksingtoken) {
       if (!viewStateMatch || !secret)
         return { success: false, message: "Server Error" };
-      return { success: true, token: viewStateMatch[1], secret: secret[1] };
+      return { success: true,regn : regnnumber,name, token: viewStateMatch[1], secret: secret[1] };
     }
     if (viewStateMatch && viewStateMatch[1]) {
       let l, r;
