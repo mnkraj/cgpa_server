@@ -13,7 +13,7 @@ const allowedOrigins = [
   "https://nitjsr.vercel.app",
   "https://cgpanitjsr.vercel.app",
   "https://cgpa-leaderboard.vercel.app",
-  "http://localhost:3000"
+  // "http://localhost:3000"
 ];
 
 app.use(cors({
@@ -43,7 +43,7 @@ app.use("/api/v1", Getresults);
 app.use("/api/v1", getindividualresult);
 // app.use("/api/v1", Delete);
 app.get("/",(req,res)=>{
-  res.send("kya aapke tooth paste mein namak hai ? ")
+  res.send({success:true,message:"Welcome to the Server"})
 })
 app.listen(port, () => {
     console.log(`Server is running on ${port}`);
