@@ -54,8 +54,9 @@ const solve3 = async (token, sem) => {
     let name = $("#lblStudentName").text().trim();
     let cgpa = $("#lblCPI").text().trim();
     let sgpa = $("#lblSPI").text().trim();
+    let marksheet = $("td").eq(31).html();
 
-    return { success: true, regnnumber, name, sem, cgpa, sgpa };
+    return { success: true, regnnumber, name, sem, cgpa, sgpa , marksheet};
   } catch (error) {
     console.error(error);
     return { success: false, message: "Error occurred" };
