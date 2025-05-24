@@ -89,10 +89,10 @@ const solve2 = async (regn) => {
       /<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="([^"]+)" \/>/
     );
     let s
-    if(regn.includes("2021")) s = 7
-    else if(regn.includes("2022")) s = 5
-    else if(regn.includes("2023")) s = 3
-    else if(regn.includes("2024")) s = 1
+    if(regn.includes("2021")) s = 8
+    else if(regn.includes("2022")) s = 6
+    else if(regn.includes("2023")) s = 4
+    else if(regn.includes("2024")) s = 2
     else s = 8
     if (viewStateMatch && viewStateMatch[1]) {
       const finalresult = await solve3(viewStateMatch[1],s);
@@ -155,7 +155,7 @@ const solve = async (regn) => {
 };
 const solveforall = async () => {
     let years = ["2022"];
-    let branches = ["CS","EE","EC"];
+    let branches = ["CS"];
     for (let year of years) {
       for (let branch of branches) {
         for (let roll = 1; roll <= 130; roll++) {
