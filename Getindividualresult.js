@@ -24,7 +24,7 @@ const solve3 = async (token, sem) => {
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "http://202.168.87.90/StudentPortal/default.aspx",
+    url: `${process.env.BASE_URL}/StudentPortal/default.aspx`,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -33,8 +33,8 @@ const solve3 = async (token, sem) => {
       Connection: "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
       Cookie: cookieenv,
-      Origin: "http://202.168.87.90",
-      Referer: "http://202.168.87.90/StudentPortal/default.aspx",
+      Origin: `${process.env.BASE_URL}`,
+      Referer: `${process.env.BASE_URL}/StudentPortal/default.aspx`,
       "Upgrade-Insecure-Requests": "1",
       "User-Agent":
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
@@ -67,14 +67,14 @@ const solve2 = async (regn, isaksingtoken) => {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: "http://202.168.87.90/StudentPortal/default.aspx",
+    url: `${process.env.BASE_URL}/StudentPortal/default.aspx`,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
       "Accept-Language": "en-US,en;q=0.9,en-IN;q=0.8",
       Connection: "keep-alive",
       Cookie: cookieenv,
-      Referer: "http://202.168.87.90/StudentPortal/Login.aspx",
+      Referer: `${process.env.BASE_URL}/StudentPortal/Login.aspx`,
       "Upgrade-Insecure-Requests": "1",
       "User-Agent":
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
@@ -153,7 +153,7 @@ const solve = async (regn, isaksingtoken) => {
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "http://202.168.87.90/StudentPortal/Login.aspx",
+    url: `${process.env.BASE_URL}/StudentPortal/Login.aspx`,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -162,8 +162,8 @@ const solve = async (regn, isaksingtoken) => {
       Connection: "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
       Cookie: cookieenv,
-      Origin: "http://202.168.87.90",
-      Referer: "http://202.168.87.90/StudentPortal/Login.aspx",
+      Origin: `${process.env.BASE_URL}`,
+      Referer: `${process.env.BASE_URL}/StudentPortal/Login.aspx`,
       "Upgrade-Insecure-Requests": "1",
       "User-Agent":
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
@@ -203,7 +203,7 @@ const solve0 = async (regn, isaksingtoken) => {
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "http://202.168.87.90/StudentPortal/ForgetPassword.aspx",
+    url: `${process.env.BASE_URL}/StudentPortal/ForgetPassword.aspx`,
     headers: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -212,8 +212,8 @@ const solve0 = async (regn, isaksingtoken) => {
       Connection: "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
       Cookie: cookieenv,
-      Origin: "http://202.168.87.90",
-      Referer: "http://202.168.87.90/StudentPortal/ForgetPassword.aspx",
+      Origin: `${process.env.BASE_URL}`,
+      Referer: `${process.env.BASE_URL}/StudentPortal/ForgetPassword.aspx`,
       "Upgrade-Insecure-Requests": "1",
       "User-Agent":
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0",
