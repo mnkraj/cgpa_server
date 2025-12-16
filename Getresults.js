@@ -90,9 +90,10 @@ const solve2 = async (regn) => {
     );
     let s
     if(regn.includes("2021")) s = 8
-    else if(regn.includes("2022")) s = 6
-    else if(regn.includes("2023")) s = 4
-    else if(regn.includes("2024")) s = 2
+    else if(regn.includes("2022")) s = 7
+    else if(regn.includes("2023")) s = 5
+    else if(regn.includes("2024")) s = 3
+    else if(regn.includes("2025")) s = 1
     else s = 8
     if (viewStateMatch && viewStateMatch[1]) {
       const finalresult = await solve3(viewStateMatch[1],s);
