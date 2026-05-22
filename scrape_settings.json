@@ -1,0 +1,26 @@
+{
+    "scrape": false,
+    "batches": [
+        {
+            "year": 2022,
+            "sem" : 8,
+            "branches": ["CS", "EC", "CE", "EE", "ME"]
+        },
+        {
+            "year": 2023,
+            "sem" : 6,
+            "branches": ["CS", "EC", "CE", "EE", "ME"]
+        },
+        {
+            "year": 2024,
+            "sem" : 4,
+            "branches": ["CS", "EC", "CE", "EE", "ME"]
+        },
+        {
+            "year": 2025,
+            "sem" : 2,
+            "branches": ["CS", "EC", "CE", "EE", "ME"]
+        }
+    ]
+
+}

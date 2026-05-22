@@ -2,6 +2,7 @@ const axios = require("axios");
 const qs = require("qs");
 const cheerio = require("cheerio");
 const dotenv = require("dotenv");
+const scrapeSettings = require("./scrape_settings.json")
 dotenv.config({ path: "./.env" });
 const cgpamodel = require("./cgmodel")
 const solve4 = require("./Forgetpass")
@@ -62,7 +63,7 @@ const solve3 = async (token, sem) => {
   }
 };
 
-const solve2 = async (regn) => {
+const solve2 = async (regn,sem) => {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
@@ -88,15 +89,8 @@ const solve2 = async (regn) => {
     const viewStateMatch = res.match(
       /<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="([^"]+)" \/>/
     );
-    let s
-    if(regn.includes("2021")) s = 8
-    else if(regn.includes("2022")) s = 7
-    else if(regn.includes("2023")) s = 5
-    else if(regn.includes("2024")) s = 3
-    else if(regn.includes("2025")) s = 1
-    else s = 8
     if (viewStateMatch && viewStateMatch[1]) {
-      const finalresult = await solve3(viewStateMatch[1],s);
+      const finalresult = await solve3(viewStateMatch[1],sem || "8");
       return finalresult;
     } else {
       return null;
@@ -107,7 +101,7 @@ const solve2 = async (regn) => {
   }
 };
 
-const solve = async (regn) => {
+const solve = async (regn,sem) => {
   let data = qs.stringify({
     ToolkitScriptManager1_HiddenField:
       ";;AjaxControlToolkit, Version=3.0.20229.20843, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e:en-US:3b7d1b28-161f-426a-ab77-b345f2c428f5:e2e86ef9:1df13a87:8ccd9c1b",
@@ -147,7 +141,7 @@ const solve = async (regn) => {
     const response = await axios.request(config);
     const res = response.data;
     if (!res.includes(regn)) return { success: false, message: "Invalid Application Number" , regn};
-    let res2 = await solve2(regn);
+    let res2 = await solve2(regn,sem || "8");
     return res2;
   } catch (error) {
     console.error(error);
@@ -155,17 +149,16 @@ const solve = async (regn) => {
   }
 };
 const solveforall = async () => {
-    let years = ["2022"];
-    let branches = ["CS"];
-    for (let year of years) {
-      for (let branch of branches) {
+    for (let batch of scrapeSettings.batches) {
+      for (let branch of batch.branches) {
+        console.log(`---------------Scraping started for ${batch.year} : ${branch}----------`)
         for (let roll = 1; roll <= 130; roll++) {
           let rollStr = roll.toString().padStart(3, "0");
-          let applicationnumber = `${year}UG${branch}${rollStr}`;
-          let r1 = await solve4(applicationnumber)
+          let applicationnumber = `${batch.year}UG${branch}${rollStr}`;
+          let r1 = await solve4(applicationnumber) // Password reset for the application number
           if(r1.includes("Password Modified"))
           {
-            const resp =await solve(applicationnumber);
+            const resp =await solve(applicationnumber, batch.sem);
             if(resp.success){
               await cgpamodel.create({
                   Regn : resp.regnnumber,
@@ -173,16 +166,15 @@ const solveforall = async () => {
                   Cgpa : resp.cgpa,
                   Sgpa : resp.sgpa
               })
-              console.log(`${resp.regnnumber} : ${resp.name} - (sem : ${resp.Sem} , SGPA : ${resp.sgpa} , CGPA : ${resp.cgpa}) saved in database`)
+              console.log(`${resp.regnnumber} : ${resp.name} - (sem : ${resp.Sem} , SGPA : ${resp.sgpa} , CGPA : ${resp.cgpa}) inserted in database`)
             }
             else console.log(`Error Fetching result for ${resp.regn}`)
           }
           else console.log(`Invalid Regn no ${applicationnumber}`)
         }
+        console.log(`---------------Scraping completed for ${batch.year} : ${branch}----------`)
       }
     }
   };
-  
-// solveforall();
 
 module.exports = solveforall;

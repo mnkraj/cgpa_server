@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const solveforall = require("./Getresults")
 const cors = require("cors");
 const Delete = require("./Delete")
+const scrapeSettings = require("./scrape_settings.json")
 const app = express();
 const allowedOrigins = [
   "https://cgpa-leaderboad.vercel.app",
@@ -37,7 +38,12 @@ app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT;
 
-//solveforall();
+if (scrapeSettings.scrape) {
+  solveforall();
+  console.log("Scraping started...");
+} else {
+  console.log("Scraping is disabled in settings. To enable, set scrape to true in scrape_settings.json and configure the batches and branches you want to scrape.");
+}
 
 app.use("/api/v1", Getresults);
 app.use("/api/v1", getindividualresult);
