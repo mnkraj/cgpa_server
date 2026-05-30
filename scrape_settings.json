@@ -1,5 +1,5 @@
 {
-    "scrape": true,
+    "scrape": false,
     "batches": [
         {
             "year": 2022,
