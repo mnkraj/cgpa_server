@@ -54,7 +54,7 @@ const solve3 = async (token, sem) => {
     let name = $("#lblStudentName").text().trim();
     let cgpa = $("#lblCPI").text().trim();
     let sgpa = $("#lblSPI").text().trim();
-    let marksheet = $("td").eq(31).html();
+    let marksheet = $("td").eq(31).html().trim();
 
     return { success: true, regnnumber, name, sem, cgpa, sgpa , marksheet};
   } catch (error) {
@@ -94,6 +94,11 @@ const solve2 = async (regn, isaksingtoken) => {
     );
     let regnnumber = $("#txtRegno").text().trim();
     let name = $("#lblSName").text().trim();
+    // --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // Newer version: returns a token generated for an individual that is directly associated with the cookies that was used for login request.
+    // The frontend then subsequently requests for semester wise results using this token at the endpoint /api/v1/getsemresult
+    // The secret here is the Student Id no that is stored in MIS database....Used mainly for getting the direct result link,
+    // The diret link for any result in the institute consist of only two distinguishing parametere the MIS Student Id no and the sem .
     if (isaksingtoken) {
       if (!viewStateMatch || !secret)
         return { success: false, message: "Server Error" };
