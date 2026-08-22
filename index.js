@@ -14,6 +14,7 @@ const allowedOrigins = [
   "https://nitjsr.vercel.app",
   "https://cgpanitjsr.vercel.app",
 "https://nitjsr-2022-archived.vercel.app",
+  "http://localhost:3000",
 ];
 
 app.use(cors({
