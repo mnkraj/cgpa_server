@@ -13,7 +13,7 @@ const allowedOrigins = [
   "https://cgpa-leaderboad.vercel.app",
   "https://nitjsr.vercel.app",
   "https://cgpanitjsr.vercel.app",
-  "https://cgpa-leaderboard.vercel.app",
+"https://nitjsr-2022-archived.vercel.app",
   "http://localhost:3000"
 ];
 
